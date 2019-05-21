@@ -17,23 +17,10 @@ This client is used to create payments for hPayments SaaS system.
 ---
 
 # Installation
-In your composer.json add the repository:
 
-1. Add these lines to your composer file:
+```bash
+composer require hostinger/hpayments-client-php
 ```
-"require": {
-    "hostinger/hpayments-client-php": "dev-master"
-}
-...
-"repositories": [
-  {
-    "type": "vcs",
-    "url": "git@github.com:hostinger/hpayments-client-php.git"
-  }
-]
-
-```
-2. Hit `composer install` and `composer update`
 
 ---
 
@@ -55,7 +42,7 @@ use Hpayments\Transaction;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $payer = new Payer([
-    'email'             => 'rdereskevicius@gmail.com',
+    'email'             => 'sales@hostinger.com',
     'custom_account_id' => 'h_123'
 ]);
 
@@ -75,7 +62,7 @@ $item = new Item([
 $itemBag = new Items();
 $itemBag->addNewItem($item);
 
-$redirectUrls = new RedirectUrls(['cancel' => 'https://google.com', 'return' => 'https://hostinger.com']);
+$redirectUrls = new RedirectUrls(['cancel' => 'https://www.hostinger.com/cancel', 'return' => 'https://www.hostinger.com/success']);
 $gateways     = new Gateways([Gateways::PROCESSOUT]);
 
 $payment = new Payment();
@@ -113,10 +100,10 @@ use Hpayments\Transaction;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $payer = new Payer([
-    'email'             => 'rdereskevicius@gmail.com',
+    'email'             => 'sales@hostinger.com',
     'custom_account_id' => 'h_123',
-    'first_name'        => 'Rytis',
-    'last_name'         => 'Dereškevičius',
+    'first_name'        => 'John',
+    'last_name'         => 'Doe',
     'country_code'      => 'LT',
     'zip'               => '12345',
     'city'              => 'Vilnius',
@@ -156,7 +143,7 @@ $itemBag = new Items();
 $itemBag->addNewItem($item);
 $itemBag->addNewItem($item2);
 
-$redirectUrls = new RedirectUrls(['cancel' => 'https://google.com', 'return' => 'https://hostinger.com']);
+$redirectUrls = new RedirectUrls(['cancel' => 'https://www.hostinger.com/cancel', 'return' => 'https://www.hostinger.com/success']);
 $gateways     = new Gateways([Gateways::BRAINTREE, Gateways::PROCESSOUT, Gateways::BRAINTREE_PAYPAL]);
 
 $payment = new Payment();
