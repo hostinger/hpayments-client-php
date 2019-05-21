@@ -16,9 +16,9 @@ class APIContext
      * APIContext constructor.
      * @param $apiToken
      */
-    public function __construct($apiToken)
+    public function __construct($apiToken, $baseUri)
     {
-        $this->APIContext = $this->getClient($apiToken);
+        $this->APIContext = $this->getClient($apiToken, $baseUri);
     }
 
     /**
