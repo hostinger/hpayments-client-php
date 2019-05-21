@@ -1,19 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rytis
- * Date: 20/05/2019
- * Time: 17:25
- */
 
 namespace Hpayments;
 
+use JsonSerializable;
 
 /**
  * Class PaymentModel
  * @package Hpayments
  */
-abstract class PaymentModel
+abstract class PaymentModel implements JsonSerializable
 {
     /**
      * @param $data
@@ -42,8 +37,16 @@ abstract class PaymentModel
      * @param $key
      * @return mixed
      */
-    private function snakeToCamel($key)
+    protected function snakeToCamel($key)
     {
         return str_replace(' ', '', ucwords(str_replace('_', ' ', $key)));
+    }
+
+    /**
+     * @return mixed|object
+     */
+    public function jsonSerialize()
+    {
+        return (object) get_object_vars($this);
     }
 }

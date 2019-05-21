@@ -8,17 +8,17 @@ use Exception;
  * Class Transaction
  * @package Hpayments
  */
-class Transaction extends PaymentModel implements \JsonSerializable
+class Transaction extends PaymentModel
 {
     protected $amount;
     protected $currency;
     protected $description;
-    protected $invoiceNumber;
-    protected $threeDSecure;
-    protected $legalDocument;
-    protected $vatPercent;
-    protected $vatAmount;
-    protected $metaData;
+    protected $invoice_number;
+    protected $three_d_secure;
+    protected $legal_document;
+    protected $vat_percent;
+    protected $vat_amount;
+    protected $meta_data;
 
     /**
      * Payer constructor.
@@ -103,31 +103,31 @@ class Transaction extends PaymentModel implements \JsonSerializable
      */
     public function getInvoiceNumber()
     {
-        return $this->invoiceNumber;
+        return $this->invoice_number;
     }
 
     /**
-     * @param mixed $invoiceNumber
+     * @param mixed $invoice_number
      */
-    public function setInvoiceNumber($invoiceNumber)
+    public function setInvoiceNumber($invoice_number)
     {
-        $this->invoiceNumber = $invoiceNumber;
+        $this->invoice_number = $invoice_number;
     }
 
     /**
      * @return mixed
      */
-    public function getThreeDSecure()
+    public function getThreeDsecure()
     {
-        return $this->threeDSecure;
+        return $this->three_d_secure;
     }
 
     /**
-     * @param mixed $threeDSecure
+     * @param mixed $three_d_secure
      */
-    public function setThreeDSecure($threeDSecure)
+    public function setThreeDsecure($three_d_secure)
     {
-        $this->threeDSecure = $threeDSecure;
+        $this->three_d_secure = $three_d_secure;
     }
 
     /**
@@ -135,15 +135,15 @@ class Transaction extends PaymentModel implements \JsonSerializable
      */
     public function getLegalDocument()
     {
-        return $this->legalDocument;
+        return $this->legal_document;
     }
 
     /**
-     * @param mixed $legalDocument
+     * @param mixed $legal_document
      */
-    public function setLegalDocument($legalDocument)
+    public function setLegalDocument($legal_document)
     {
-        $this->legalDocument = $legalDocument;
+        $this->legal_document = $legal_document;
     }
 
     /**
@@ -151,15 +151,15 @@ class Transaction extends PaymentModel implements \JsonSerializable
      */
     public function getVatPercent()
     {
-        return $this->vatPercent;
+        return $this->vat_percent;
     }
 
     /**
-     * @param mixed $vatPercent
+     * @param mixed $vat_percent
      */
-    public function setVatPercent($vatPercent)
+    public function setVatPercent($vat_percent)
     {
-        $this->vatPercent = $vatPercent;
+        $this->vat_percent = $vat_percent;
     }
 
     /**
@@ -167,15 +167,15 @@ class Transaction extends PaymentModel implements \JsonSerializable
      */
     public function getVatAmount()
     {
-        return $this->vatAmount;
+        return $this->vat_amount;
     }
 
     /**
-     * @param mixed $vatAmount
+     * @param mixed $vat_amount
      */
-    public function setVatAmount($vatAmount)
+    public function setVatAmount($vat_amount)
     {
-        $this->vatAmount = $vatAmount;
+        $this->vat_amount = $vat_amount;
     }
 
     /**
@@ -183,19 +183,14 @@ class Transaction extends PaymentModel implements \JsonSerializable
      */
     public function getMetaData()
     {
-        return $this->metaData;
+        return $this->meta_data;
     }
 
     /**
-     * @param mixed $metaData
+     * @param mixed $meta_data
      */
-    public function setMetaData($metaData)
+    public function setMetaData($meta_data)
     {
-        $this->metaData = $metaData;
-    }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
+        $this->meta_data = $meta_data;
     }
 }

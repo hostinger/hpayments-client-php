@@ -2,45 +2,50 @@
 
 namespace Hpayments;
 
+use JsonSerializable;
 
-class Payment
+/**
+ * Class Payment
+ * @package Hpayments
+ */
+class Payment implements JsonSerializable
 {
-    private $payer;
-    private $transaction;
+    private $payer_details;
+    private $transaction_details;
     private $items;
-    private $redirectUrls;
+    private $redirect_urls;
     private $gateways;
 
     /**
      * @return mixed
      */
-    public function getPayer()
+    public function getPayerDetails()
     {
-        return $this->payer;
+        return $this->payer_details;
     }
 
     /**
      * @param mixed $payerDetails
      */
-    public function setPayer(Payer $payer)
+    public function setPayerDetails(Payer $payer_details)
     {
-        $this->payer = $payer;
+        $this->payer_details = $payer_details;
     }
 
     /**
      * @return mixed
      */
-    public function getTransaction()
+    public function getTransactionDetails()
     {
-        return $this->transaction;
+        return $this->transaction_details;
     }
 
     /**
      * @param mixed $transactionDetails
      */
-    public function setTransaction(Transaction $transaction)
+    public function setTransactionDetails(Transaction $transaction_details)
     {
-        $this->transaction = $transaction;
+        $this->transaction_details = $transaction_details;
     }
 
     /**
@@ -64,15 +69,15 @@ class Payment
      */
     public function getRedirectUrls()
     {
-        return $this->redirectUrls;
+        return $this->redirect_urls;
     }
 
     /**
-     * @param mixed $redirectUrls
+     * @param mixed $redirect_urls
      */
-    public function setRedirectUrls(RedirectUrls $redirectUrls)
+    public function setRedirectUrls(RedirectUrls $redirect_urls)
     {
-        $this->redirectUrls = $redirectUrls;
+        $this->redirect_urls = $redirect_urls;
     }
 
     /**
@@ -91,8 +96,11 @@ class Payment
         $this->gateways = $gateways;
     }
 
-    public function toJson()
+    /**
+     * @return mixed|object
+     */
+    public function jsonSerialize()
     {
-        return json_encode(get_object_vars($this));
+        return (object)get_object_vars($this);
     }
 }

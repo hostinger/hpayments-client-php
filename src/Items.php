@@ -23,6 +23,9 @@ class Items extends PaymentModel implements \JsonSerializable
         array_push($this->items, $item);
     }
 
+    /**
+     * @return array|mixed|object
+     */
     public function jsonSerialize()
     {
         return (array) get_object_vars($this)['items'];

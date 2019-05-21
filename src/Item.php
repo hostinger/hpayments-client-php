@@ -3,14 +3,17 @@
 namespace Hpayments;
 
 use Exception;
-use JsonSerializable;
 
-class Item extends PaymentModel implements JsonSerializable
+/**
+ * Class Item
+ * @package Hpayments
+ */
+class Item extends PaymentModel
 {
     protected $name;
     protected $period;
-    protected $priceNow;
-    protected $priceBefore;
+    protected $price_now;
+    protected $price_before;
 
     /**
      * Payer constructor.
@@ -67,15 +70,15 @@ class Item extends PaymentModel implements JsonSerializable
      */
     public function getPriceNow()
     {
-        return $this->priceNow;
+        return $this->price_now;
     }
 
     /**
-     * @param mixed $priceNow
+     * @param mixed $price_now
      */
-    public function setPriceNow($priceNow)
+    public function setPriceNow($price_now)
     {
-        $this->priceNow = $priceNow;
+        $this->price_now = $price_now;
     }
 
     /**
@@ -83,19 +86,14 @@ class Item extends PaymentModel implements JsonSerializable
      */
     public function getPriceBefore()
     {
-        return $this->priceBefore;
+        return $this->price_before;
     }
 
     /**
-     * @param mixed $priceBefore
+     * @param mixed $price_before
      */
-    public function setPriceBefore($priceBefore)
+    public function setPriceBefore($price_before)
     {
-        $this->priceBefore = $priceBefore;
-    }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
+        $this->price_before = $price_before;
     }
 }

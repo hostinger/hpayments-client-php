@@ -8,16 +8,16 @@ use Exception;
  * Class Payer
  * @package Hpayments
  */
-class Payer extends PaymentModel implements \JsonSerializable
+class Payer extends PaymentModel
 {
-    protected $firstName;
-    protected $lastName;
+    protected $first_name;
+    protected $last_name;
     protected $email;
-    protected $countryCode;
+    protected $country_code;
     protected $zip;
     protected $city;
     protected $address;
-    protected $customAccountId;
+    protected $custom_account_id;
 
     /**
      * Payer constructor.
@@ -42,15 +42,15 @@ class Payer extends PaymentModel implements \JsonSerializable
      */
     public function getFirstName()
     {
-        return $this->firstName;
+        return $this->first_name;
     }
 
     /**
-     * @param mixed $firstName
+     * @param mixed $first_name
      */
-    public function setFirstName($firstName)
+    public function setFirstName($first_name)
     {
-        $this->firstName = $firstName;
+        $this->first_name = $first_name;
     }
 
     /**
@@ -58,15 +58,15 @@ class Payer extends PaymentModel implements \JsonSerializable
      */
     public function getLastName()
     {
-        return $this->lastName;
+        return $this->last_name;
     }
 
     /**
-     * @param mixed $lastName
+     * @param mixed $last_name
      */
-    public function setLastName($lastName)
+    public function setLastName($last_name)
     {
-        $this->lastName = $lastName;
+        $this->last_name = $last_name;
     }
 
     /**
@@ -90,15 +90,15 @@ class Payer extends PaymentModel implements \JsonSerializable
      */
     public function getCountryCode()
     {
-        return $this->countryCode;
+        return $this->country_code;
     }
 
     /**
-     * @param mixed $countryCode
+     * @param mixed $country_code
      */
-    public function setCountryCode($countryCode)
+    public function setCountryCode($country_code)
     {
-        $this->countryCode = $countryCode;
+        $this->country_code = $country_code;
     }
 
     /**
@@ -152,21 +152,16 @@ class Payer extends PaymentModel implements \JsonSerializable
     /**
      * @return mixed
      */
-    public function getCustomAccountId()
+    public function getCustomAccountid()
     {
-        return $this->customAccountId;
+        return $this->custom_account_id;
     }
 
     /**
-     * @param mixed $customAccountId
+     * @param mixed $custom_account_id
      */
-    public function setCustomAccountId($customAccountId)
+    public function setCustomAccountid($custom_account_id)
     {
-        $this->customAccountId = $customAccountId;
-    }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
+        $this->custom_account_id = $custom_account_id;
     }
 }

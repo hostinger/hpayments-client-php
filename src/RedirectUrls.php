@@ -1,17 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rytis
- * Date: 20/05/2019
- * Time: 17:55
- */
 
 namespace Hpayments;
 
-
 use Exception;
 
-class RedirectUrls extends PaymentModel implements \JsonSerializable
+/**
+ * Class RedirectUrls
+ * @package Hpayments
+ */
+class RedirectUrls extends PaymentModel
 {
     protected $return;
     protected $cancel;
@@ -64,10 +61,5 @@ class RedirectUrls extends PaymentModel implements \JsonSerializable
     public function setCancel($cancel)
     {
         $this->cancel = $cancel;
-    }
-
-    public function jsonSerialize()
-    {
-        return (object) get_object_vars($this);
     }
 }
