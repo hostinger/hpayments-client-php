@@ -48,7 +48,6 @@ class APIContext
      * Creates a payment.
      *
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function createPayment(Payment $payment)
     {
@@ -56,6 +55,16 @@ class APIContext
             'http_errors' => false,
             'body'        => json_encode($payment->jsonSerialize())
         ]);
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function ping()
+    {
+        $response = $this->getAPIContext()->request('GET', '/api/ping', ['http_errors' => false]);
         return json_decode($response->getBody()->getContents(), true);
     }
 }
