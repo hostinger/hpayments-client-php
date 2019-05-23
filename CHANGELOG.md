@@ -3,6 +3,7 @@
 ## [1.0.0] - 2019-05-23
 ### Added
 - Ping API call
+- Payment Info API call
 
 ## [1.0.0] - 2019-05-21
 ### Added
