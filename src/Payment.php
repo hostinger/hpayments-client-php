@@ -14,7 +14,7 @@ class Payment implements JsonSerializable
     private $transaction_details;
     private $items;
     private $redirect_urls;
-    private $gateways;
+    private $merchant_accounts;
 
     /**
      * @return mixed
@@ -83,17 +83,17 @@ class Payment implements JsonSerializable
     /**
      * @return mixed
      */
-    public function getGateways()
+    public function getMerchantAccounts()
     {
-        return $this->gateways;
+        return $this->merchant_accounts;
     }
 
     /**
      * @param mixed $gateways
      */
-    public function setGateways(Gateways $gateways)
+    public function setMerchantAccounts(MerchantAccounts $merchantAccounts)
     {
-        $this->gateways = $gateways;
+        $this->merchant_accounts = $merchantAccounts;
     }
 
     /**
