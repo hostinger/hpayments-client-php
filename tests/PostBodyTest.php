@@ -2,9 +2,10 @@
 
 namespace Hpayments\Tests;
 
-use Hpayments\Gateways;
+use Hpayments\APIContext;
 use Hpayments\Item;
 use Hpayments\Items;
+use Hpayments\MerchantAccounts;
 use Hpayments\Payer;
 use Hpayments\Payment;
 use Hpayments\RedirectUrls;
@@ -168,9 +169,9 @@ class PostBodyTest extends TestCase
      */
     public function testGatewaysEncode()
     {
-        $gateways = new Gateways([Gateways::BRAINTREE, Gateways::PROCESSOUT, Gateways::BRAINTREE_PAYPAL]);
+        $merchantAccounts = new MerchantAccounts(['braintree', 'braintree_paypal', 'processout']);
 
-        $objectToPost = json_encode($gateways);
+        $objectToPost = json_encode($merchantAccounts);
         $this->assertJson($objectToPost);
 
         return json_decode($objectToPost, true);
@@ -179,7 +180,7 @@ class PostBodyTest extends TestCase
     /**
      * @depends testGatewaysEncode
      */
-    public function testGatewayValues($data)
+    public function testMerchantAccountValues($data)
     {
         $this->assertNotEmpty($data[0]);
         $this->assertNotEmpty($data[1]);
@@ -188,6 +189,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function testFullPayloadEncode()
     {
@@ -235,15 +237,15 @@ class PostBodyTest extends TestCase
         $itemBag->addNewItem($item);
         $itemBag->addNewItem($item2);
 
-        $redirectUrls = new RedirectUrls(['cancel' => 'https://google.com', 'return' => 'https://hostinger.com']);
-        $gateways     = new Gateways([Gateways::BRAINTREE, Gateways::PROCESSOUT, Gateways::BRAINTREE_PAYPAL]);
+        $redirectUrls      = new RedirectUrls(['cancel' => 'https://google.com', 'return' => 'https://hostinger.com']);
+        $merchantAccounts  = new MerchantAccounts(['processout', 'braintree', 'braintree_paypal']);
 
         $payment = new Payment();
         $payment->setPayerDetails($payer);
         $payment->setTransactionDetails($transaction);
         $payment->setItems($itemBag);
         $payment->setRedirectUrls($redirectUrls);
-        $payment->setGateways($gateways);
+        $payment->setMerchantAccounts($merchantAccounts);
 
         $objectToPost = json_encode($payment);
         $this->assertJson($objectToPost);
@@ -292,8 +294,8 @@ class PostBodyTest extends TestCase
         $this->assertNotEmpty($data['redirect_urls']['cancel']);
         $this->assertNotEmpty($data['redirect_urls']['return']);
 
-        $this->assertNotEmpty($data['gateways'][0]);
-        $this->assertNotEmpty($data['gateways'][1]);
-        $this->assertNotEmpty($data['gateways'][2]);
+        $this->assertNotEmpty($data['merchant_accounts'][0]);
+        $this->assertNotEmpty($data['merchant_accounts'][1]);
+        $this->assertNotEmpty($data['merchant_accounts'][2]);
     }
 }
