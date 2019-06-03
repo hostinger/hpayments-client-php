@@ -31,15 +31,13 @@ composer require hostinger/hpayments-client-php
 <?php
 
 use Hpayments\APIContext;
-use Hpayments\Gateways;
+use Hpayments\MerchantAccounts;
 use Hpayments\Item;
 use Hpayments\Items;
 use Hpayments\Payer;
 use Hpayments\Payment;
 use Hpayments\RedirectUrls;
 use Hpayments\Transaction;
-
-require_once __DIR__ . '/../vendor/autoload.php';
 
 $payer = new Payer([
     'email'             => 'sales@hostinger.com',
@@ -63,14 +61,18 @@ $itemBag = new Items();
 $itemBag->addNewItem($item);
 
 $redirectUrls = new RedirectUrls(['cancel' => 'https://www.hostinger.com/cancel', 'return' => 'https://www.hostinger.com/success']);
-$gateways     = new Gateways([Gateways::PROCESSOUT]);
+
+$paymentsApi = new APIContext('your_api_token', 'http://localhost');
+$response    = $paymentsApi->getMerchantAccounts();
+
+$merchantAccounts = new MerchantAccounts($response['data']['merchant_account_ids']);
 
 $payment = new Payment();
 $payment->setPayerDetails($payer);
 $payment->setTransactionDetails($transaction);
 $payment->setItems($itemBag);
 $payment->setRedirectUrls($redirectUrls);
-$payment->setGateways($gateways);
+$payment->setMerchantAccounts($merchantAccounts);
 
 $paymentsApi = new APIContext('your_api_token', 'http://localhost');
 $response = $paymentsApi->createPayment($payment);
@@ -89,15 +91,13 @@ if (!$response['success']){
 <?php
 
 use Hpayments\APIContext;
-use Hpayments\Gateways;
+use Hpayments\MerchantAccounts;
 use Hpayments\Item;
 use Hpayments\Items;
 use Hpayments\Payer;
 use Hpayments\Payment;
 use Hpayments\RedirectUrls;
 use Hpayments\Transaction;
-
-require_once __DIR__ . '/../vendor/autoload.php';
 
 $payer = new Payer([
     'email'             => 'sales@hostinger.com',
@@ -144,14 +144,18 @@ $itemBag->addNewItem($item);
 $itemBag->addNewItem($item2);
 
 $redirectUrls = new RedirectUrls(['cancel' => 'https://www.hostinger.com/cancel', 'return' => 'https://www.hostinger.com/success']);
-$gateways     = new Gateways([Gateways::BRAINTREE, Gateways::PROCESSOUT, Gateways::BRAINTREE_PAYPAL]);
+
+$paymentsApi = new APIContext('your_api_token', 'http://localhost');
+$response    = $paymentsApi->getMerchantAccounts();
+
+$merchantAccounts = new MerchantAccounts($response['data']['merchant_account_ids']);
 
 $payment = new Payment();
 $payment->setPayerDetails($payer);
 $payment->setTransactionDetails($transaction);
 $payment->setItems($itemBag);
 $payment->setRedirectUrls($redirectUrls);
-$payment->setGateways($gateways);
+$payment->setMerchantAccounts($merchantAccounts);
 
 $paymentsApi = new APIContext('your_api_token', 'http://localhost');
 $response = $paymentsApi->createPayment($payment);
