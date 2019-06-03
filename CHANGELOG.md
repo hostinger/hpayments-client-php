@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1] - 2019-06-03
+### Added
+- Merchant accounts retrieval API call
+
 ## [1.0.0] - 2019-05-23
 ### Added
 - Ping API call
