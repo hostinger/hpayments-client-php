@@ -78,4 +78,14 @@ class APIContext
         $response = $this->getAPIContext()->request('GET', '/api/v1/payment/' . $token, ['http_errors' => false]);
         return json_decode($response->getBody()->getContents(), true);
     }
+
+    /**
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getMerchantAccounts()
+    {
+        $response = $this->getAPIContext()->request('GET', '/api/v1/gateway', ['http_errors' => false]);
+        return json_decode($response->getBody()->getContents(), true);
+    }
 }
