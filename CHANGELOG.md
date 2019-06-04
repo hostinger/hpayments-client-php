@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.2] - 2019-06-04
+### Fixed
+- Sanitize NULL values on JSON Serialize
+
 ## [1.0.1] - 2019-06-03
 ### Added
 - Merchant accounts retrieval API call

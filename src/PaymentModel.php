@@ -47,6 +47,8 @@ abstract class PaymentModel implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return (object) get_object_vars($this);
+        return (object)array_filter(get_object_vars($this), function ($val) {
+            return !is_null($val);
+        });
     }
 }

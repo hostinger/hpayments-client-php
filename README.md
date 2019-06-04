@@ -74,7 +74,6 @@ $payment->setItems($itemBag);
 $payment->setRedirectUrls($redirectUrls);
 $payment->setMerchantAccounts($merchantAccounts);
 
-$paymentsApi = new APIContext('your_api_token', 'http://localhost');
 $response = $paymentsApi->createPayment($payment);
 
 if (!$response['success']){
@@ -157,7 +156,6 @@ $payment->setItems($itemBag);
 $payment->setRedirectUrls($redirectUrls);
 $payment->setMerchantAccounts($merchantAccounts);
 
-$paymentsApi = new APIContext('your_api_token', 'http://localhost');
 $response = $paymentsApi->createPayment($payment);
 
 if (!$response['success']){
