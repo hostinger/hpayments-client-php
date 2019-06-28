@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.3] - 2019-06-28
+### Added
+- Valid Payment methods retrieval API call
+- Recurrent Charge API Call
+
 ## [1.0.2] - 2019-06-04
 ### Fixed
 - Sanitize NULL values on JSON Serialize
