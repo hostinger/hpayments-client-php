@@ -1,4 +1,4 @@
-# HPayments PHP Client ![Generic badge](https://img.shields.io/badge/v-1.0.1-<COLOR>.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+# HPayments PHP Client ![Generic badge](https://img.shields.io/badge/v-1.0.3-<COLOR>.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 This client is used to create payments for hPayments SaaS system.
 
@@ -164,6 +164,8 @@ if (!$response['success']){
     echo $response['data']['redirect_link'];
 }
 ```
+
+- You can find all available REST endpoints in `APIContext.php` file
 
 ---
 
