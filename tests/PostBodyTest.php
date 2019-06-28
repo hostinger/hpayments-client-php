@@ -2,12 +2,13 @@
 
 namespace Hpayments\Tests;
 
-use Hpayments\APIContext;
+use Exception;
 use Hpayments\Item;
 use Hpayments\Items;
 use Hpayments\MerchantAccounts;
 use Hpayments\Payer;
 use Hpayments\Payment;
+use Hpayments\RecurrentCharge;
 use Hpayments\RedirectUrls;
 use Hpayments\Transaction;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +16,39 @@ use PHPUnit\Framework\TestCase;
 class PostBodyTest extends TestCase
 {
     /**
-     * @throws \Exception
+     * @throws Exception
+     */
+    public function testRecurrentChargeEncode()
+    {
+        $charge = new RecurrentCharge([
+            'customer_custom_id' => 'a_123',
+            'invoice_number'     => '123',
+            'currency'           => 'EUR',
+            'method_id'          => 13,
+            'amount'             => 111
+        ]);
+
+        $objectToPost = json_encode($charge);
+
+        $this->assertJson($objectToPost);
+
+        return json_decode($objectToPost, true);
+    }
+
+    /**
+     * @depends testRecurrentChargeEncode
+     */
+    public function testRecurrentChargeEncodedValues($data)
+    {
+        $this->assertNotEmpty($data['customer_custom_id']);
+        $this->assertNotEmpty($data['invoice_number']);
+        $this->assertNotEmpty($data['currency']);
+        $this->assertNotEmpty($data['method_id']);
+        $this->assertNotEmpty($data['amount']);
+    }
+    
+    /**
+     * @throws Exception
      */
     public function testPayerEncode()
     {
@@ -52,7 +85,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testTransactionEncode()
     {
@@ -96,7 +129,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testItemsEncode()
     {
@@ -143,7 +176,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testRedirectUrlsEncode()
     {
@@ -165,7 +198,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGatewaysEncode()
     {
@@ -188,7 +221,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function testFullPayloadEncode()

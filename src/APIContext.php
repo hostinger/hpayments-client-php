@@ -3,6 +3,7 @@
 namespace Hpayments;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class APIContext
@@ -48,7 +49,7 @@ class APIContext
      * Creates a payment.
      *
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function createPayment(Payment $payment)
     {
@@ -61,7 +62,7 @@ class APIContext
 
     /**
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function ping()
     {
@@ -71,7 +72,7 @@ class APIContext
 
     /**
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getPaymentInfo($token)
     {
@@ -81,11 +82,34 @@ class APIContext
 
     /**
      * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getMerchantAccounts()
     {
         $response = $this->getAPIContext()->request('GET', '/api/v1/gateway', ['http_errors' => false]);
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @param $customClientId
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getClientPaymentMethods($customClientId)
+    {
+        $response = $this->getAPIContext()->request('GET', "/api/v1/valid-payment-method/{$customClientId}", ['http_errors' => false]);
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function chargeClient(RecurrentCharge $charge)
+    {
+        $response = $this->getAPIContext()->request('POST', '/api/v1/valid-payment-method', [
+            'http_errors' => false,
+            'body'        => json_encode($charge->jsonSerialize())
+        ]);
         return json_decode($response->getBody()->getContents(), true);
     }
 }
