@@ -112,4 +112,34 @@ class APIContext
         ]);
         return json_decode($response->getBody()->getContents(), true);
     }
+
+    /**
+     * @param $customerCustomId
+     * @param $methodId
+     * @return mixed
+     * @throws GuzzleException
+     */
+    public function setDefaultCard($customerCustomId, $methodId)
+    {
+        $response = $this->getAPIContext()->request('PATCH', '/api/v1/valid-payment-method', [
+            'http_errors' => false,
+            'body'        => json_encode(['customer_custom_id' => $customerCustomId, 'method_id' => $methodId])
+        ]);
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @param $customerCustomId
+     * @param $methodId
+     * @return mixed
+     * @throws GuzzleException
+     */
+    public function deletePaymentMethod($customerCustomId, $methodId)
+    {
+        $response = $this->getAPIContext()->request('DELETE', '/api/v1/valid-payment-method', [
+            'http_errors' => false,
+            'body'        => json_encode(['customer_custom_id' => $customerCustomId, 'method_id' => $methodId])
+        ]);
+        return json_decode($response->getBody()->getContents(), true);
+    }
 }

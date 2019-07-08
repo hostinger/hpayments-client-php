@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.4] - 2019-07-08
+### Added
+- Set Default Payment Method API Call
+- Delete Payment Method API Call
+
 ## [1.0.3] - 2019-06-28
 ### Added
 - Valid Payment methods retrieval API call
