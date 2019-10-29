@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.5] - 2019-10-29
+### Added
+- Get expiring cards API Call
+### Fixed
+- Missing PHPDoc
+
 ## [1.0.4] - 2019-07-08
 ### Added
 - Set Default Payment Method API Call

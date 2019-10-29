@@ -16,6 +16,7 @@ class APIContext
     /**
      * APIContext constructor.
      * @param $apiToken
+     * @param $baseUri
      */
     public function __construct($apiToken, $baseUri)
     {
@@ -23,6 +24,8 @@ class APIContext
     }
 
     /**
+     * @param $apiToken
+     * @param $baseUri
      * @return Client
      */
     private function getClient($apiToken, $baseUri)
@@ -48,6 +51,7 @@ class APIContext
     /**
      * Creates a payment.
      *
+     * @param Payment $payment
      * @return array
      * @throws GuzzleException
      */
@@ -61,7 +65,7 @@ class APIContext
     }
 
     /**
-     * @return mixed
+     * @return array
      * @throws GuzzleException
      */
     public function ping()
@@ -71,7 +75,8 @@ class APIContext
     }
 
     /**
-     * @return mixed
+     * @param $token
+     * @return array
      * @throws GuzzleException
      */
     public function getPaymentInfo($token)
@@ -81,7 +86,7 @@ class APIContext
     }
 
     /**
-     * @return mixed
+     * @return array
      * @throws GuzzleException
      */
     public function getMerchantAccounts()
@@ -102,6 +107,8 @@ class APIContext
     }
 
     /**
+     * @param RecurrentCharge $charge
+     * @return array
      * @throws GuzzleException
      */
     public function chargeClient(RecurrentCharge $charge)
@@ -116,7 +123,7 @@ class APIContext
     /**
      * @param $customerCustomId
      * @param $methodId
-     * @return mixed
+     * @return array
      * @throws GuzzleException
      */
     public function setDefaultCard($customerCustomId, $methodId)
@@ -139,6 +146,29 @@ class APIContext
         $response = $this->getAPIContext()->request('DELETE', '/api/v1/valid-payment-method', [
             'http_errors' => false,
             'body'        => json_encode(['customer_custom_id' => $customerCustomId, 'method_id' => $methodId])
+        ]);
+        return json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * @param string $expiresFrom
+     * @param string $expiresTo
+     * @param bool   $getOnlyDefault
+     * @return array
+     * @throws GuzzleException
+     * @example $expiresTo '2019-10-31'
+     * @example $expiresFrom '2019-10-01'
+     */
+    public function getExpiringCards($expiresFrom, $expiresTo, $getOnlyDefault = false)
+    {
+        $httpQuery = http_build_query([
+            'expires_from' => $expiresFrom,
+            'expires_to'   => $expiresTo,
+            'is_default'   => $getOnlyDefault
+        ]);
+
+        $response = $this->getAPIContext()->request('GET', '/api/v1/cards/expiring?' . $httpQuery, [
+            'http_errors' => false,
         ]);
         return json_decode($response->getBody()->getContents(), true);
     }
