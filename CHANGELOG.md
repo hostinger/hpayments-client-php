@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.6] - 2019-11-09
+### Added
+- Future Payment API Call
+
 ## [1.0.5] - 2019-10-29
 ### Added
 - Get expiring cards API Call
