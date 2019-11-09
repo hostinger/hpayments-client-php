@@ -3,6 +3,7 @@
 namespace Hpayments\Tests;
 
 use Exception;
+use Hpayments\FuturePayment;
 use Hpayments\Item;
 use Hpayments\Items;
 use Hpayments\MerchantAccounts;
@@ -37,6 +38,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @depends testRecurrentChargeEncode
+     * @param $data
      */
     public function testRecurrentChargeEncodedValues($data)
     {
@@ -159,6 +161,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @depends testItemsEncode
+     * @param $data
      */
     public function testItemsEncodedValues($data)
     {
@@ -190,6 +193,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @depends testRedirectUrlsEncode
+     * @param $data
      */
     public function testRedirectUrlsValues($data)
     {
@@ -212,6 +216,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @depends testGatewaysEncode
+     * @param $data
      */
     public function testMerchantAccountValues($data)
     {
@@ -221,8 +226,8 @@ class PostBodyTest extends TestCase
     }
 
     /**
+     * @return mixed
      * @throws Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function testFullPayloadEncode()
     {
@@ -288,6 +293,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @depends testFullPayloadEncode
+     * @param $data
      */
     public function testFullPayloadValues($data)
     {
@@ -330,5 +336,55 @@ class PostBodyTest extends TestCase
         $this->assertNotEmpty($data['merchant_accounts'][0]);
         $this->assertNotEmpty($data['merchant_accounts'][1]);
         $this->assertNotEmpty($data['merchant_accounts'][2]);
+    }
+
+    public function testFullPayloadEncodeFuturePayment()
+    {
+        $payer = new Payer([
+            'email'             => 'rdereskevicius@gmail.com',
+            'custom_account_id' => 'h_123',
+            'first_name'        => 'Rytis',
+            'last_name'         => 'Dereškevičius',
+            'country_code'      => 'LT',
+            'zip'               => '12345',
+            'city'              => 'Vilnius',
+            'address'           => 'Mokyklos g.18',
+            'document_required' => '1'
+        ]);
+
+        $redirectUrls = new RedirectUrls(['cancel' => 'https://google.com', 'return' => 'https://hostinger.com']);
+
+        $payment = new FuturePayment();
+        $payment->setPayerDetails($payer);
+        $payment->setRedirectUrls($redirectUrls);
+        $payment->setMerchantAccount('processout');
+
+        $objectToPost = json_encode($payment);
+
+        $this->assertJson($objectToPost);
+
+        return json_decode($objectToPost, true);
+    }
+
+    /**
+     * @depends testFullPayloadEncodeFuturePayment
+     * @param $data
+     */
+    public function testFullPayloadFuturePaymentValues($data)
+    {
+        $this->assertNotEmpty($data['payer_details']['email']);
+        $this->assertNotEmpty($data['payer_details']['custom_account_id']);
+        $this->assertNotEmpty($data['payer_details']['first_name']);
+        $this->assertNotEmpty($data['payer_details']['last_name']);
+        $this->assertNotEmpty($data['payer_details']['country_code']);
+        $this->assertNotEmpty($data['payer_details']['zip']);
+        $this->assertNotEmpty($data['payer_details']['city']);
+        $this->assertNotEmpty($data['payer_details']['address']);
+        $this->assertNotEmpty($data['payer_details']['document_required']);
+
+        $this->assertNotEmpty($data['redirect_urls']['cancel']);
+        $this->assertNotEmpty($data['redirect_urls']['return']);
+
+        $this->assertNotEmpty($data['merchant_account']);
     }
 }

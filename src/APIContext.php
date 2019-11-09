@@ -11,6 +11,8 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class APIContext
 {
+    const REQUEST_OPTION_HTTP_ERRORS = 'http_errors';
+    const REQUEST_OPTION_BODY        = 'body';
     protected $APIContext;
 
     /**
@@ -34,7 +36,7 @@ class APIContext
             'base_uri' => $baseUri,
             'timeOut'  => 10,
             'headers'  => [
-                'Accept'        => 'application/json',
+                'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $apiToken
             ]
         ]);
@@ -58,10 +60,10 @@ class APIContext
     public function createPayment(Payment $payment)
     {
         $response = $this->getAPIContext()->request('POST', '/api/v1/payment', [
-            'http_errors' => false,
-            'body'        => json_encode($payment->jsonSerialize())
+            self::REQUEST_OPTION_HTTP_ERRORS => false,
+            self::REQUEST_OPTION_BODY        => json_encode($payment->jsonSerialize())
         ]);
-        return json_decode($response->getBody()->getContents(), true);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -70,8 +72,10 @@ class APIContext
      */
     public function ping()
     {
-        $response = $this->getAPIContext()->request('GET', '/api/ping', ['http_errors' => false]);
-        return json_decode($response->getBody()->getContents(), true);
+        $response = $this->getAPIContext()->request('GET', '/api/ping', [
+            self::REQUEST_OPTION_HTTP_ERRORS => false
+        ]);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -81,8 +85,10 @@ class APIContext
      */
     public function getPaymentInfo($token)
     {
-        $response = $this->getAPIContext()->request('GET', '/api/v1/payment/' . $token, ['http_errors' => false]);
-        return json_decode($response->getBody()->getContents(), true);
+        $response = $this->getAPIContext()->request('GET', '/api/v1/payment/' . $token, [
+            self::REQUEST_OPTION_HTTP_ERRORS => false
+        ]);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -91,8 +97,10 @@ class APIContext
      */
     public function getMerchantAccounts()
     {
-        $response = $this->getAPIContext()->request('GET', '/api/v1/gateway', ['http_errors' => false]);
-        return json_decode($response->getBody()->getContents(), true);
+        $response = $this->getAPIContext()->request('GET', '/api/v1/gateway', [
+            self::REQUEST_OPTION_HTTP_ERRORS => false
+        ]);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -102,8 +110,10 @@ class APIContext
      */
     public function getClientPaymentMethods($customClientId)
     {
-        $response = $this->getAPIContext()->request('GET', "/api/v1/valid-payment-method/{$customClientId}", ['http_errors' => false]);
-        return json_decode($response->getBody()->getContents(), true);
+        $response = $this->getAPIContext()->request('GET', "/api/v1/valid-payment-method/{$customClientId}", [
+            self::REQUEST_OPTION_HTTP_ERRORS => false
+        ]);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -114,10 +124,10 @@ class APIContext
     public function chargeClient(RecurrentCharge $charge)
     {
         $response = $this->getAPIContext()->request('POST', '/api/v1/valid-payment-method', [
-            'http_errors' => false,
-            'body'        => json_encode($charge->jsonSerialize())
+            self::REQUEST_OPTION_HTTP_ERRORS => false,
+            self::REQUEST_OPTION_BODY        => json_encode($charge->jsonSerialize())
         ]);
-        return json_decode($response->getBody()->getContents(), true);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -129,10 +139,13 @@ class APIContext
     public function setDefaultCard($customerCustomId, $methodId)
     {
         $response = $this->getAPIContext()->request('PATCH', '/api/v1/valid-payment-method', [
-            'http_errors' => false,
-            'body'        => json_encode(['customer_custom_id' => $customerCustomId, 'method_id' => $methodId])
+            self::REQUEST_OPTION_HTTP_ERRORS => false,
+            self::REQUEST_OPTION_BODY        => json_encode([
+                'customer_custom_id' => $customerCustomId,
+                'method_id'          => $methodId
+            ])
         ]);
-        return json_decode($response->getBody()->getContents(), true);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -144,10 +157,13 @@ class APIContext
     public function deletePaymentMethod($customerCustomId, $methodId)
     {
         $response = $this->getAPIContext()->request('DELETE', '/api/v1/valid-payment-method', [
-            'http_errors' => false,
-            'body'        => json_encode(['customer_custom_id' => $customerCustomId, 'method_id' => $methodId])
+            self::REQUEST_OPTION_HTTP_ERRORS => false,
+            self::REQUEST_OPTION_BODY        => json_encode([
+                'customer_custom_id' => $customerCustomId,
+                'method_id'          => $methodId
+            ])
         ]);
-        return json_decode($response->getBody()->getContents(), true);
+        return $this->parseResponse($response);
     }
 
     /**
@@ -168,8 +184,33 @@ class APIContext
         ]);
 
         $response = $this->getAPIContext()->request('GET', '/api/v1/cards/expiring?' . $httpQuery, [
-            'http_errors' => false,
+            self::REQUEST_OPTION_HTTP_ERRORS => false,
         ]);
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * Creates future payment.
+     *
+     * @param FuturePayment $futurePayment
+     * @return array
+     * @throws GuzzleException
+     */
+    public function createFuturePayment(FuturePayment $futurePayment)
+    {
+        $response = $this->getAPIContext()->request('POST', 'api/v1/future-payment/create', [
+            self::REQUEST_OPTION_HTTP_ERRORS => false,
+            self::REQUEST_OPTION_BODY        => json_encode($futurePayment->jsonSerialize())
+        ]);
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param $response
+     * @return array
+     */
+    private function parseResponse($response)
+    {
         return json_decode($response->getBody()->getContents(), true);
     }
 }

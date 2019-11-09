@@ -18,6 +18,7 @@ class Payer extends PaymentModel
     protected $city;
     protected $address;
     protected $custom_account_id;
+    protected $document_required;
 
     /**
      * Payer constructor.
@@ -38,7 +39,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFirstName()
     {
@@ -46,7 +47,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @param mixed $first_name
+     * @param string $first_name
      */
     public function setFirstName($first_name)
     {
@@ -54,7 +55,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLastName()
     {
@@ -62,7 +63,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @param mixed $last_name
+     * @param string $last_name
      */
     public function setLastName($last_name)
     {
@@ -70,7 +71,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {
@@ -78,7 +79,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @param mixed $email
+     * @param string $email
      */
     public function setEmail($email)
     {
@@ -86,7 +87,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCountryCode()
     {
@@ -94,7 +95,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @param mixed $country_code
+     * @param string $country_code
      */
     public function setCountryCode($country_code)
     {
@@ -102,7 +103,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getZip()
     {
@@ -110,7 +111,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @param mixed $zip
+     * @param string $zip
      */
     public function setZip($zip)
     {
@@ -118,7 +119,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCity()
     {
@@ -126,7 +127,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @param mixed $city
+     * @param string $city
      */
     public function setCity($city)
     {
@@ -134,7 +135,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAddress()
     {
@@ -142,7 +143,7 @@ class Payer extends PaymentModel
     }
 
     /**
-     * @param mixed $address
+     * @param string $address
      */
     public function setAddress($address)
     {
@@ -152,7 +153,7 @@ class Payer extends PaymentModel
     /**
      * @return mixed
      */
-    public function getCustomAccountid()
+    public function getCustomAccountId()
     {
         return $this->custom_account_id;
     }
@@ -160,8 +161,24 @@ class Payer extends PaymentModel
     /**
      * @param mixed $custom_account_id
      */
-    public function setCustomAccountid($custom_account_id)
+    public function setCustomAccountId($custom_account_id)
     {
         $this->custom_account_id = $custom_account_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocumentRequired()
+    {
+        return $this->document_required;
+    }
+
+    /**
+     * @param $document_required
+     */
+    public function setDocumentRequired($document_required)
+    {
+        $this->document_required = $document_required;
     }
 }
