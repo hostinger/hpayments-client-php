@@ -10,12 +10,76 @@ use Hpayments\MerchantAccounts;
 use Hpayments\Payer;
 use Hpayments\Payment;
 use Hpayments\RecurrentCharge;
+use Hpayments\RecurrentPayment;
+use Hpayments\RecurrentTransaction;
 use Hpayments\RedirectUrls;
 use Hpayments\Transaction;
 use PHPUnit\Framework\TestCase;
 
 class PostBodyTest extends TestCase
 {
+
+    public function testRecurrentChargeV2()
+    {
+        $payer = new Payer([
+            'email'             => 'opa@gmail.com',
+            'custom_account_id' => 'h_422303',
+            'first_name'        => 'Rytis',
+            'last_name'         => 'Der',
+            'country_code'      => 'US',
+            'zip'               => 'LT 123-23',
+            'city'              => 'Pabrad',
+            'address'           => 'koas'
+        ]);
+
+        $recurrentTransaction = new RecurrentTransaction([
+            'amount'         => 399,
+            'currency'       => 'EUR',
+            'invoice_number' => '111',
+            'method_id'      => 49,
+            'meta_data' => [
+                'reference_id' => 'random_id'
+            ]
+        ]);
+
+        $recurrentPayment = new RecurrentPayment();
+        $recurrentPayment->setPayerDetails($payer);
+        $recurrentPayment->setTransactionDetails($recurrentTransaction);
+
+        $objectToPost = json_encode($recurrentPayment);
+        $this->assertJson($objectToPost);
+
+        return json_decode($objectToPost, true);
+    }
+
+    /**
+     * @param array $encodedData
+     * @depends testRecurrentChargeV2
+     */
+    public function testRecurrentChargeV2Encoding(array $encodedData)
+    {
+        $this->assertNotEmpty($encodedData['payer_details']);
+        $this->assertNotEmpty($encodedData['transaction_details']);
+
+        $payer = $encodedData['payer_details'];
+        $this->assertNotEmpty($payer['email']);
+        $this->assertNotEmpty($payer['custom_account_id']);
+        $this->assertNotEmpty($payer['first_name']);
+        $this->assertNotEmpty($payer['last_name']);
+        $this->assertNotEmpty($payer['country_code']);
+        $this->assertNotEmpty($payer['zip']);
+        $this->assertNotEmpty($payer['city']);
+        $this->assertNotEmpty($payer['address']);
+
+        $transaction = $encodedData['transaction_details'];
+        $this->assertNotEmpty($transaction['amount']);
+        $this->assertNotEmpty($transaction['currency']);
+        $this->assertNotEmpty($transaction['meta_data']);
+        $this->assertArrayHasKey('reference_id', $transaction['meta_data']);
+        $this->assertNotEmpty($transaction['method_id']);
+        $this->assertNotEmpty($transaction['invoice_number']);
+    }
+
     /**
      * @throws Exception
      */
