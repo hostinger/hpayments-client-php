@@ -131,6 +131,20 @@ class APIContext
     }
 
     /**
+     * @param RecurrentPayment $recurrentPayment
+     * @return array
+     * @throws GuzzleException
+     */
+    public function chargeClientV2(RecurrentPayment $recurrentPayment)
+    {
+        $response = $this->getAPIContext()->request('POST', '/api/v2/valid-payment-method', [
+            self::REQUEST_OPTION_HTTP_ERRORS => false,
+            self::REQUEST_OPTION_BODY        => json_encode($recurrentPayment->jsonSerialize())
+        ]);
+        return $this->parseResponse($response);
+    }
+
+    /**
      * @param $customerCustomId
      * @param $methodId
      * @return array

@@ -1,4 +1,4 @@
-# HPayments PHP Client ![Generic badge](https://img.shields.io/badge/v-1.0.6-<COLOR>.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+# HPayments PHP Client ![Generic badge](https://img.shields.io/badge/v-1.0.7-<COLOR>.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 This client is used to create payments for hPayments SaaS system.
 
@@ -172,7 +172,7 @@ if (!$response['success']){
 # Run PHPUnit Tests
 
 1. `composer install --dev` to install 5.7 PHPUnit.
-2. `./vendor/bin/phpunit tests/` inside `vendor/hostinger/hpayments-client-php`
+2. run `./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/PostBodyTest.php`
 
 ---
 
