@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.7] - 2019-11-25
+### Added
+- Recurrent charge V2
+
 ## [1.0.6] - 2019-11-09
 ### Added
 - Future Payment API Call
