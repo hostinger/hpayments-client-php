@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.8] - 2020-05-18
+### Added
+- Recurrent Manual Charge API Call
+
 ## [1.0.7] - 2019-11-25
 ### Added
 - Recurrent charge V2
