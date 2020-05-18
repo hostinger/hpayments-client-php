@@ -2,7 +2,7 @@
 
 ## [1.0.8] - 2020-05-18
 ### Added
-- One Click API Call
+- Recurrent Manual Charge API Call
 
 ## [1.0.7] - 2019-11-25
 ### Added

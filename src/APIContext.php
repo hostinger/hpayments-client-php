@@ -149,7 +149,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function chargeClientOneClick(RecurrentPayment $recurrentPayment)
+    public function recurrentManualCharge(RecurrentPayment $recurrentPayment)
     {
         $response = $this->getAPIContext()->request('POST', '/api/v2/recurrent-manual-payment', [
             self::REQUEST_OPTION_HTTP_ERRORS => false,
