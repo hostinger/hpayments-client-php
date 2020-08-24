@@ -16,9 +16,17 @@ use Hpayments\RedirectUrls;
 use Hpayments\Transaction;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class PostBodyTest
+ * @package Hpayments\Tests
+ */
 class PostBodyTest extends TestCase
 {
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function testRecurrentChargeV2()
     {
         $payer = new Payer([
@@ -53,8 +61,10 @@ class PostBodyTest extends TestCase
     }
 
     /**
-     * @param array $encodedData
      * @depends testRecurrentChargeV2
+     *
+     * @param array $encodedData
+     * @return void
      */
     public function testRecurrentChargeV2Encoding(array $encodedData)
     {
@@ -81,6 +91,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
+     * @return array
      * @throws Exception
      */
     public function testRecurrentChargeEncode()
@@ -103,6 +114,7 @@ class PostBodyTest extends TestCase
     /**
      * @depends testRecurrentChargeEncode
      * @param $data
+     * @return void
      */
     public function testRecurrentChargeEncodedValues($data)
     {
@@ -112,7 +124,7 @@ class PostBodyTest extends TestCase
         $this->assertNotEmpty($data['method_id']);
         $this->assertNotEmpty($data['amount']);
     }
-    
+
     /**
      * @throws Exception
      */
@@ -137,6 +149,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @depends testPayerEncode
+     * @return void
      */
     public function testPayerEncodedValues($data)
     {
@@ -152,6 +165,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @throws Exception
+     * @return array
      */
     public function testTransactionEncode()
     {
@@ -178,6 +192,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @depends testTransactionEncode
+     * return void
      */
     public function testTransactionEncodedValues($data)
     {
@@ -196,6 +211,7 @@ class PostBodyTest extends TestCase
 
     /**
      * @throws Exception
+     * @return array
      */
     public function testItemsEncode()
     {
@@ -226,6 +242,7 @@ class PostBodyTest extends TestCase
     /**
      * @depends testItemsEncode
      * @param $data
+     * @return void
      */
     public function testItemsEncodedValues($data)
     {
@@ -243,6 +260,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
+     * @return array
      * @throws Exception
      */
     public function testRedirectUrlsEncode()
@@ -258,6 +276,7 @@ class PostBodyTest extends TestCase
     /**
      * @depends testRedirectUrlsEncode
      * @param $data
+     * @return void
      */
     public function testRedirectUrlsValues($data)
     {
@@ -266,6 +285,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
+     * @return array
      * @throws Exception
      */
     public function testGatewaysEncode()
@@ -281,6 +301,7 @@ class PostBodyTest extends TestCase
     /**
      * @depends testGatewaysEncode
      * @param $data
+     * @return void
      */
     public function testMerchantAccountValues($data)
     {
@@ -290,7 +311,7 @@ class PostBodyTest extends TestCase
     }
 
     /**
-     * @return mixed
+     * @return array
      * @throws Exception
      */
     public function testFullPayloadEncode()
@@ -358,6 +379,7 @@ class PostBodyTest extends TestCase
     /**
      * @depends testFullPayloadEncode
      * @param $data
+     * @return void
      */
     public function testFullPayloadValues($data)
     {
@@ -402,6 +424,10 @@ class PostBodyTest extends TestCase
         $this->assertNotEmpty($data['merchant_accounts'][2]);
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function testFullPayloadEncodeFuturePayment()
     {
         $payer = new Payer([
@@ -421,7 +447,7 @@ class PostBodyTest extends TestCase
         $payment = new FuturePayment();
         $payment->setPayerDetails($payer);
         $payment->setRedirectUrls($redirectUrls);
-        $payment->setMerchantAccount('processout');
+        $payment->setMerchantAccounts(['processout']);
 
         $objectToPost = json_encode($payment);
 
@@ -433,6 +459,7 @@ class PostBodyTest extends TestCase
     /**
      * @depends testFullPayloadEncodeFuturePayment
      * @param $data
+     * @return void
      */
     public function testFullPayloadFuturePaymentValues($data)
     {
@@ -449,6 +476,6 @@ class PostBodyTest extends TestCase
         $this->assertNotEmpty($data['redirect_urls']['cancel']);
         $this->assertNotEmpty($data['redirect_urls']['return']);
 
-        $this->assertNotEmpty($data['merchant_account']);
+        $this->assertNotEmpty($data['merchant_accounts']);
     }
 }

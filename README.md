@@ -173,7 +173,8 @@ if (!$response['success']){
 
 1. `composer install --dev` to install 5.7 PHPUnit.
 2. run `./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/PostBodyTest.php`
-
+3. if you have local hPayments environment you can also run integration tests  
+`./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/LocalIntegrationTest.php`
 ---
 
 # License
