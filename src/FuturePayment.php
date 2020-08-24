@@ -11,16 +11,6 @@ use JsonSerializable;
 class FuturePayment implements JsonSerializable
 {
     /**
-     * @var string METHOD_PROCESSOUT
-     */
-    const METHOD_PROCESSOUT = 'processout';
-
-    /**
-     * @var string METHOD_BRAINREE_PAYPAL
-     */
-    const METHOD_BRAINREE_PAYPAL = 'braintree_paypal';
-
-    /**
      * @var Payer $payer_details
      */
     private $payer_details;

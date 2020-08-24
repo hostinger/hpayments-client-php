@@ -17,6 +17,8 @@ use PHPUnit\Framework\TestCase;
  */
 class LocalIntegrationTest extends TestCase
 {
+    const MERCHANT_PROCESSOUT = 'processout';
+    const MERCHANT_BRAINTREE_PAYPAL    = 'braintree_paypal';
     /**
      * @var APIContext $client
      */
@@ -53,8 +55,8 @@ class LocalIntegrationTest extends TestCase
         ]));
 
         $futurePayment->setMerchantAccounts([
-            FuturePayment::METHOD_PROCESSOUT,
-            FuturePayment::METHOD_BRAINREE_PAYPAL,
+            self::MERCHANT_PROCESSOUT,
+            self::MERCHANT_BRAINTREE_PAYPAL,
         ]);
 
         return $this->client->createFuturePayment($futurePayment);
