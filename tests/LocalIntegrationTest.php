@@ -17,8 +17,16 @@ use PHPUnit\Framework\TestCase;
  */
 class LocalIntegrationTest extends TestCase
 {
+    /**
+     * @var string MERCHANT_PROCESSOUT
+     */
     const MERCHANT_PROCESSOUT = 'processout';
-    const MERCHANT_BRAINTREE_PAYPAL    = 'braintree_paypal';
+
+    /**
+     * @var string MERCHANT_BRAINTREE_PAYPAL
+     */
+    const MERCHANT_BRAINTREE_PAYPAL = 'braintree_paypal';
+
     /**
      * @var APIContext $client
      */
