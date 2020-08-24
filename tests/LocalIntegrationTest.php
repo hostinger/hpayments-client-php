@@ -77,19 +77,6 @@ class LocalIntegrationTest extends TestCase
      */
     public function testFuturePaymentCreatedSuccessfully(array $response)
     {
-        $this->assertResponseHasNoErrors($response);
-
-        $this->assertEquals(200, $response['status']);
-    }
-
-    /**
-     * @param array $response
-     * @return void
-     */
-    private function assertResponseHasNoErrors(array $response)
-    {
-        if ($response['status'] === 422) {
-            $this->assertEquals([], $response['error']['validation_messages']);
-        }
+        $this->assertEquals(200, $response['status'], json_encode($response));
     }
 }
