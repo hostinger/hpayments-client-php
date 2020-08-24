@@ -10,9 +10,20 @@ use JsonSerializable;
  */
 class FuturePayment implements JsonSerializable
 {
+    /**
+     * @var Payer $payer_details
+     */
     private $payer_details;
+
+    /**
+     * @var RedirectUrls $redirect_urls
+     */
     private $redirect_urls;
-    private $merchant_account;
+
+    /**
+     * @var array $merchant_accounts
+     */
+    private $merchant_accounts;
 
     /**
      * @return mixed
@@ -47,19 +58,17 @@ class FuturePayment implements JsonSerializable
     }
 
     /**
-     * @return string
+     * @param array $merchantAccounts
      */
-    public function getMerchantAccount()
-    {
-        return $this->redirect_urls;
+    public function setMerchantAccounts(array $merchantAccounts) {
+        $this->merchant_accounts = $merchantAccounts;
     }
 
     /**
-     * @param string $merchantAccount
+     * @return array
      */
-    public function setMerchantAccount($merchantAccount)
-    {
-        $this->merchant_account = $merchantAccount;
+    public function getMerchantAccounts() {
+        return $this->merchant_accounts;
     }
 
     /**
