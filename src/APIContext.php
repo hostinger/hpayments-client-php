@@ -17,7 +17,7 @@ class APIContext
     const CLIENT_VERSION = '1.1.0';
 
     /**
-     * @var string CLIENT_VERSION
+     * @var string REQUEST_OPTION_HTTP_ERRORS
      */
     const REQUEST_OPTION_HTTP_ERRORS = 'http_errors';
 
