@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.0] - 2020-08-25
+### Added 
+- Client version
+
+## [1.0.9] - 2020-08-25
+### Added
+- Future Payment setMerchantAccounts method
+### Removed
+- Future Payment setMerchantAccount method
+
 ## [1.0.8] - 2020-05-18
 ### Added
 - Recurrent Manual Charge API Call

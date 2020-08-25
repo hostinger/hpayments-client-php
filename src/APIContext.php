@@ -11,8 +11,24 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class APIContext
 {
+    /**
+     * @var string CLIENT_VERSION
+     */
+    const CLIENT_VERSION = '1.1.0';
+
+    /**
+     * @var string REQUEST_OPTION_HTTP_ERRORS
+     */
     const REQUEST_OPTION_HTTP_ERRORS = 'http_errors';
-    const REQUEST_OPTION_BODY        = 'body';
+
+    /**
+     * @var string REQUEST_OPTION_BODY
+     */
+    const REQUEST_OPTION_BODY = 'body';
+
+    /**
+     * @var Client $APIContext
+     */
     protected $APIContext;
 
     /**
@@ -36,8 +52,9 @@ class APIContext
             'base_uri' => $baseUri,
             'timeOut'  => 10,
             'headers'  => [
-                'Accept' => 'application/json',
-                'Authorization' => 'Bearer ' . $apiToken
+                'Accept'        => 'application/json',
+                'Authorization' => 'Bearer ' . $apiToken,
+                'User-Agent'    => 'HPayments Client v' . self::CLIENT_VERSION,
             ]
         ]);
     }
