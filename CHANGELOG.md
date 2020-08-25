@@ -3,9 +3,9 @@
 ## [1.0.9] - 2020-08-25
 ### Added
 - Client version
-- Future Payment merchant_accounts method
+- Future Payment setMerchantAccounts method
 ### Removed
-- Future Payment merchant_account method
+- Future Payment setMerchantAccount method
 
 ## [1.0.8] - 2020-05-18
 ### Added
