@@ -1,8 +1,11 @@
 # Changelog
 
+## [1.1.0] - 2020-08-25
+### Added 
+- Client version
+
 ## [1.0.9] - 2020-08-25
 ### Added
-- Client version
 - Future Payment setMerchantAccounts method
 ### Removed
 - Future Payment setMerchantAccount method
