@@ -1,4 +1,4 @@
-# HPayments PHP Client ![Generic badge](https://img.shields.io/badge/v-1.0.7-<COLOR>.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+# HPayments PHP Client ![Generic badge](https://img.shields.io/badge/v-1.1.0-<COLOR>.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 This client is used to create payments for hPayments SaaS system.
 
@@ -163,6 +163,29 @@ if (!$response['success']){
 } else {
     echo $response['data']['redirect_link'];
 }
+```
+
+# Future payment usage
+```php
+        $futurePayment = new FuturePayment();
+
+        $futurePayment->setPayerDetails(new Payer([
+            'email'             => 'test@example.com',
+            'custom_account_id' => 'h_123123',
+            'document_required' => 1
+        ]));
+
+        $futurePayment->setRedirectUrls(new RedirectUrls([
+            'return' => 'http://hostinger.com?status=1',
+            'cancel' => 'http://hostinger.com?error=0'
+        ]));
+
+        $futurePayment->setMerchantAccounts([
+            'processout',
+            'braintree_paypal',
+        ]);
+
+        return $this->client->createFuturePayment($futurePayment);
 ```
 
 - You can find all available REST endpoints in `APIContext.php` file
