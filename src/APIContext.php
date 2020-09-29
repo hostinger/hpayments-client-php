@@ -14,7 +14,7 @@ class APIContext
     /**
      * @var string CLIENT_VERSION
      */
-    const CLIENT_VERSION = '1.1.0';
+    const CLIENT_VERSION = '1.1.1';
 
     /**
      * @var string REQUEST_OPTION_HTTP_ERRORS
@@ -247,6 +247,124 @@ class APIContext
             self::REQUEST_OPTION_HTTP_ERRORS => false,
             self::REQUEST_OPTION_BODY        => json_encode($futurePayment->jsonSerialize())
         ]);
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param string $merchantAccount
+     * @param string $paymentToken
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getDirectPaymentFormV3(string $merchantAccount, string $paymentToken)
+    {
+        $response = $this->getAPIContext()->request(
+            'GET',
+            'api/v3/provider/account/' . $merchantAccount . '/' . $paymentToken,
+            [
+                self::REQUEST_OPTION_HTTP_ERRORS => false,
+            ]
+        );
+        if ($response->getStatusCode() === 200) {
+            return [
+                'status'  => 200,
+                'success' => true,
+                'data' => [
+                    'form' => $response->getBody()->getContents(),
+                ],
+            ];
+        }
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param string $merchantAccount
+     * @param string $paymentToken
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getDirectPaymentMethodFormV3(string $merchantAccount, string $paymentMethod)
+    {
+        $response = $this->getAPIContext()->request(
+            'GET',
+            'api/v3/provider/' . $merchantAccount . '/' . $paymentMethod,
+            [
+                self::REQUEST_OPTION_HTTP_ERRORS => false,
+            ]
+        );
+        if ($response->getStatusCode() === 200) {
+            return [
+                'status'  => 200,
+                'success' => true,
+                'data' => [
+                    'form' => $response->getBody()->getContents(),
+                ],
+            ];
+        }
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param string $merchantAccount
+     * @param array  $formData
+     * @return array
+     * @throws GuzzleException
+     */
+    public function submitDirectPaymentFormV3(string $merchantAccount, array $formData)
+    {
+        $response = $this->getAPIContext()->request('POST', 'api/v3/direct-payment/' . $merchantAccount, [
+            self::REQUEST_OPTION_HTTP_ERRORS => false,
+            self::REQUEST_OPTION_BODY        => json_encode($formData)
+        ]);
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param string $merchantAccount
+     * @param string $paymentMethod
+     * @param array  $formData
+     * @return array
+     * @throws GuzzleException
+     */
+    public function submitDirectPaymentMethodFormV3(string $merchantAccount, string $paymentMethod, array $formData)
+    {
+        $response = $this->getAPIContext()->request(
+            'POST',
+            'api/v3/direct-payment/' . $merchantAccount . '/' . $paymentMethod,
+            [
+                self::REQUEST_OPTION_HTTP_ERRORS => false,
+                self::REQUEST_OPTION_BODY        => json_encode($formData)
+            ]
+        );
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param string $message
+     * @param string $code
+     * @return array
+     * @throws GuzzleException
+     */
+    public function submitDirectPaymentError(string $message, string $code)
+    {
+        $response = $this->getAPIContext()->request(
+            'POST',
+            'api/v3/direct-payment-error',
+            [
+                self::REQUEST_OPTION_HTTP_ERRORS => false,
+                self::REQUEST_OPTION_BODY        => json_encode(
+                    [
+                        'message' => $merchantAccount,
+                        'code'    => $code
+                    ]
+                )
+            ]
+        );
+
         return $this->parseResponse($response);
     }
 
