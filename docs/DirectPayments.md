@@ -1,6 +1,6 @@
 # Direct Payments
 
-Version 1.1.1 and above include direct payment methods operations.
+Version 1.2.0 and above include direct payment methods operations.
 Currently implemented and supported direct payments:
 
 ### Direct payments:
@@ -18,7 +18,7 @@ Difference between two groups is that the second group has a subgroup of payment
 
 # API Client commands
 
-## getDirectPaymentFormV3
+## getDirectPaymentForm
 ```$xslt
     /**
      * @param string $merchantAccount
@@ -26,7 +26,7 @@ Difference between two groups is that the second group has a subgroup of payment
      * @return array
      * @throws GuzzleException
      */
-    public function getDirectPaymentFormV3(string $merchantAccount, string $paymentToken)
+    public function getDirectPaymentForm(string $merchantAccount, string $paymentToken)
 ```
 This method returns a form, to be included in your page. You need to create a payment in advance and provide 
 a payment token, so correct form can be returned to you (they may differ according to provided payment data).
@@ -35,7 +35,7 @@ a payment token, so correct form can be returned to you (they may differ accordi
  and styling to handle events, wire the form to your backend and adjust styling to fit yours.__ More about 
  what javascript code to include will be explained in next chapter.
 
-## getDirectPaymentMethodFormV3
+## getDirectPaymentMethodForm
 ```$xslt
     /**
      * @param string $merchantAccount
@@ -43,14 +43,14 @@ a payment token, so correct form can be returned to you (they may differ accordi
      * @return array
      * @throws GuzzleException
      */
-    public function getDirectPaymentMethodFormV3(string $merchantAccount, string $paymentMethod)
+    public function getDirectPaymentMethodForm(string $merchantAccount, string $paymentMethod)
 ```
-This does exactly same as getDirectPaymentFormV3 , but for payment methods, e.g. Processout->Coinpayments.
+This does exactly same as getDirectPaymentForm , but for payment methods, e.g. Processout->Coinpayments.
 This is implemented a little differently and you don't have to provide payment token right away,
  however as you will read in the next chapter, you will have to provide that information yourself, 
  by implementing event listeners - more on that in next chapter.
  
- ## submitDirectPaymentFormV3
+ ## submitDirectPaymentForm
  ```$xslt
     /**
      * @param string $merchantAccount
@@ -58,14 +58,14 @@ This is implemented a little differently and you don't have to provide payment t
      * @return array
      * @throws GuzzleException
      */
-    public function submitDirectPaymentFormV3(string $merchantAccount, array $formData)
+    public function submitDirectPaymentForm(string $merchantAccount, array $formData)
 ```
 As you will read in next chapter, you will have to implement event listeners and provide your backend url 
 for form post data handling. After receiving post data in the backend, you will have to send it 
 through this method, so it can be processed. You will receive json {"completed": true} in the event 
 of succesfuly finished transaction.
 
-## submitDirectPaymentMethodFormV3
+## submitDirectPaymentMethodForm
 ```$xslt
     /**
      * @param string $merchantAccount
@@ -74,10 +74,10 @@ of succesfuly finished transaction.
      * @return array
      * @throws GuzzleException
      */
-    public function submitDirectPaymentMethodFormV3(string $merchantAccount, string $paymentMethod, array $formData)
+    public function submitDirectPaymentMethodForm(string $merchantAccount, string $paymentMethod, array $formData)
 ```
 
-This does exactly same as submitDirectPaymentFormV3 , but does that for provided paymentMethod instead of just merchant.
+This does exactly same as submitDirectPaymentForm , but does that for provided paymentMethod instead of just merchant.
 
 ## submitDirectPaymentError
 ```$xslt
@@ -95,7 +95,7 @@ pass error code and message, so they can be tracked and we can timely react to o
 
 # Integrating forms
 So you are integrating some merchang: e.g. braintree_paypal. You will have some page for that on your side.
- You will then call above mentioned getDirectPaymentFormV3 or submitDirectPaymentMethodFormV3 if you 
+ You will then call above mentioned getDirectPaymentForm or submitDirectPaymentMethodForm if you 
  are integrating payment method e.g. processout_apm->coinpayments. Next you will need to include more
  javascript to: handle javascript events, handle errors, provide your backend url and other data. Below
  are presented example implementations, which you can adjust to your needs and of course change to 

@@ -256,7 +256,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function getDirectPaymentFormV3(string $merchantAccount, string $paymentToken)
+    public function getDirectPaymentForm(string $merchantAccount, string $paymentToken)
     {
         $response = $this->getAPIContext()->request(
             'GET',
@@ -284,7 +284,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function getDirectPaymentMethodFormV3(string $merchantAccount, string $paymentMethod)
+    public function getDirectPaymentMethodForm(string $merchantAccount, string $paymentMethod)
     {
         $response = $this->getAPIContext()->request(
             'GET',
@@ -312,7 +312,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function submitDirectPaymentFormV3(string $merchantAccount, array $formData)
+    public function submitDirectPaymentForm(string $merchantAccount, array $formData)
     {
         $response = $this->getAPIContext()->request('POST', 'api/v3/direct-payment/' . $merchantAccount, [
             self::REQUEST_OPTION_HTTP_ERRORS => false,
@@ -329,7 +329,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function submitDirectPaymentMethodFormV3(string $merchantAccount, string $paymentMethod, array $formData)
+    public function submitDirectPaymentMethodForm(string $merchantAccount, string $paymentMethod, array $formData)
     {
         $response = $this->getAPIContext()->request(
             'POST',
@@ -358,7 +358,7 @@ class APIContext
                 self::REQUEST_OPTION_HTTP_ERRORS => false,
                 self::REQUEST_OPTION_BODY        => json_encode(
                     [
-                        'message' => $merchantAccount,
+                        'message' => $message,
                         'code'    => $code
                     ]
                 )
