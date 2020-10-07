@@ -188,6 +188,10 @@ if (!$response['success']){
         return $this->client->createFuturePayment($futurePayment);
 ```
 
+# Direct payments usage
+
+For direct payments usage, read DirectPayments.md which is located in docs/DirectPayments in this repository.
+
 - You can find all available REST endpoints in `APIContext.php` file
 
 ---
