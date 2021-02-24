@@ -24,7 +24,7 @@ class DirectPaymentsTest extends TestCase
     /**
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -119,7 +119,7 @@ class DirectPaymentsTest extends TestCase
             'amount'         => $somePrice,
             'currency'       => 'USD',
             'description'    => 'Test payment for hosting.',
-            'invoice_number' => rand(100000, 99999),
+            'invoice_number' => rand(100000, 999999),
             'three_d_secure' => '1'
         ]);
 
