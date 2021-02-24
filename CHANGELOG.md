@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.0] - 2021-02-24
+### Added 
+- Support for PHP 7
+
 ## [1.1.0] - 2020-08-25
 ### Added 
 - Client version
