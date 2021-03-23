@@ -14,7 +14,7 @@ class APIContext
     /**
      * @var string CLIENT_VERSION
      */
-    const CLIENT_VERSION = '1.2.0';
+    const CLIENT_VERSION = '1.2.1';
 
     /**
      * @var string REQUEST_OPTION_HTTP_ERRORS
