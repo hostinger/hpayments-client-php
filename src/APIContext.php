@@ -14,7 +14,7 @@ class APIContext
     /**
      * @var string CLIENT_VERSION
      */
-    const CLIENT_VERSION = '2.0.0';
+    const CLIENT_VERSION = '2.0.1';
 
     /**
      * @var string REQUEST_OPTION_HTTP_ERRORS
@@ -130,6 +130,25 @@ class APIContext
         $response = $this->getAPIContext()->request('GET', "/api/v1/valid-payment-method/{$customClientId}", [
             self::REQUEST_OPTION_HTTP_ERRORS => false
         ]);
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param $customClientId
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getRawClientPaymentMethods($customClientId)
+    {
+        $response = $this->getAPIContext()->request(
+            'GET',
+            "/api/v1/valid-payment-method-raw/{$customClientId}",
+            [
+                self::REQUEST_OPTION_HTTP_ERRORS => false
+            ]
+        );
+
         return $this->parseResponse($response);
     }
 
