@@ -14,7 +14,7 @@ class APIContext
     /**
      * @var string CLIENT_VERSION
      */
-    const CLIENT_VERSION = '1.2.0';
+    const CLIENT_VERSION = '1.2.1';
 
     /**
      * @var string REQUEST_OPTION_HTTP_ERRORS
@@ -275,7 +275,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function getDirectPaymentForm(string $merchantAccount, string $paymentToken)
+    public function getDirectPaymentForm($merchantAccount, $paymentToken)
     {
         $response = $this->getAPIContext()->request(
             'GET',
@@ -303,7 +303,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function getDirectPaymentMethodForm(string $merchantAccount, string $paymentMethod)
+    public function getDirectPaymentMethodForm($merchantAccount, $paymentMethod)
     {
         $response = $this->getAPIContext()->request(
             'GET',
@@ -331,7 +331,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function submitDirectPaymentForm(string $merchantAccount, array $formData)
+    public function submitDirectPaymentForm($merchantAccount, $formData)
     {
         $response = $this->getAPIContext()->request('POST', 'api/v3/direct-payment/' . $merchantAccount, [
             self::REQUEST_OPTION_HTTP_ERRORS => false,
@@ -348,7 +348,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function submitDirectPaymentMethodForm(string $merchantAccount, string $paymentMethod, array $formData)
+    public function submitDirectPaymentMethodForm($merchantAccount, $paymentMethod, $formData)
     {
         $response = $this->getAPIContext()->request(
             'POST',
@@ -368,7 +368,7 @@ class APIContext
      * @return array
      * @throws GuzzleException
      */
-    public function submitDirectPaymentError(string $message, string $code)
+    public function submitDirectPaymentError($message, $code)
     {
         $response = $this->getAPIContext()->request(
             'POST',
