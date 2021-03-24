@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1] - 2022-03-23
+### Added 
+- Method for unobfuscated valid payment method list retrieval
+
+## [1.2.0] - 2020-12-25
+### Added 
+- Direct integration
+
 ## [1.1.0] - 2020-08-25
 ### Added 
 - Client version
