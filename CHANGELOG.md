@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.2] - 2021-04-07
+### Added
+- Merchant accounts API V2 call
+
+## [2.0.1] - 2021-03-23
+### Added
+- Support for unobfuscated valid payment method list retrieval
+
 ## [2.0.0] - 2021-02-24
 ### Added 
 - Support for PHP 7
