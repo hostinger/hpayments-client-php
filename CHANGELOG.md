@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.2] - 2022-04-07
+### Added
+- Merchant accounts API V2 call
+
 ## [1.2.1] - 2022-03-23
 ### Added 
 - Method for unobfuscated valid payment method list retrieval
