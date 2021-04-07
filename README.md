@@ -1,4 +1,4 @@
-# HPayments PHP Client ![Generic badge](https://img.shields.io/badge/v-2.0.0-<COLOR>.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+# HPayments PHP Client ![Generic badge](https://img.shields.io/badge/v-2.0.2-<COLOR>.svg) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 This client is used to create payments for hPayments SaaS system.
 There are 2 versions. `v1` is for `PHP 5` and `v2` is for `PHP 7`. When doing changes to master, those changes should be also made in branch `2.0`
