@@ -14,7 +14,7 @@ class APIContext
     /**
      * @var string CLIENT_VERSION
      */
-    const CLIENT_VERSION = '2.0.1';
+    const CLIENT_VERSION = '2.0.2';
 
     /**
      * @var string REQUEST_OPTION_HTTP_ERRORS
@@ -115,6 +115,18 @@ class APIContext
     public function getMerchantAccounts()
     {
         $response = $this->getAPIContext()->request('GET', '/api/v1/gateway', [
+            self::REQUEST_OPTION_HTTP_ERRORS => false
+        ]);
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getMerchantAccountsV2()
+    {
+        $response = $this->getAPIContext()->request('GET', '/api/v2/payment-gateways', [
             self::REQUEST_OPTION_HTTP_ERRORS => false
         ]);
         return $this->parseResponse($response);
