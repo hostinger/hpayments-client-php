@@ -121,6 +121,18 @@ class APIContext
     }
 
     /**
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getMerchantAccountsV2()
+    {
+        $response = $this->getAPIContext()->request('GET', '/api/v2/payment-gateways', [
+            self::REQUEST_OPTION_HTTP_ERRORS => false
+        ]);
+        return $this->parseResponse($response);
+    }
+
+    /**
      * @param $customClientId
      * @return array
      * @throws GuzzleException
