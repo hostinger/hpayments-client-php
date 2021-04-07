@@ -6,7 +6,7 @@
 
 ## [2.0.1] - 2021-03-23
 ### Added
-- Add support for unobfuscated valid payment method list retrieval
+- Support for unobfuscated valid payment method list retrieval
 
 ## [2.0.0] - 2021-02-24
 ### Added 
