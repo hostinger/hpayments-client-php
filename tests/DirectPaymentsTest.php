@@ -50,14 +50,14 @@ class DirectPaymentsTest extends TestCase
      * @dataProvider directPaymentFormProvider
      *
      * @param $merchantAccount
-     * @param $keyword
+     * @param $formValidationKeyword
      * @throws GuzzleException
      */
-    public function testShowsDirectPaymentForm($merchantAccount, $keyword)
+    public function testShowsDirectPaymentForm($merchantAccount, $formValidationKeyword)
     {
         $result = $this->client->getDirectPaymentForm($merchantAccount);
         $generatedForm = $result['data']['form'];
-        $this->assertTrue(strpos($generatedForm, $keyword) !== false);
+        $this->assertTrue(strpos($generatedForm, $formValidationKeyword) !== false);
     }
 
     /**
