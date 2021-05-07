@@ -38,10 +38,10 @@ class DirectPaymentsTest extends TestCase
     {
         return [
             [
-                'processout'
+                'processout', 'processout_token'
             ],
             [
-                'braintree_paypal'
+                'braintree_paypal', 'paypal-button'
             ]
         ];
     }
@@ -49,21 +49,15 @@ class DirectPaymentsTest extends TestCase
     /**
      * @dataProvider directPaymentFormProvider
      *
+     * @param $merchantAccount
+     * @param $keyword
      * @throws GuzzleException
      */
-    public function testShowsDirectPaymentForm($merchantAccount)
+    public function testShowsDirectPaymentForm($merchantAccount, $keyword)
     {
-        $paymentInfoToken = $this->createPayment($this->client);
-        $result = $this->client->getDirectPaymentForm(
-            $merchantAccount,
-            $paymentInfoToken
-        );
+        $result = $this->client->getDirectPaymentForm($merchantAccount);
         $generatedForm = $result['data']['form'];
-        $tokenInForm = $this->getStringBetween(
-            $generatedForm,
-            'name="payment_token" value="', '"'
-        );
-        $this->assertEquals($paymentInfoToken, $tokenInForm);
+        $this->assertTrue(strpos($generatedForm, $keyword) !== false);
     }
 
     /**
