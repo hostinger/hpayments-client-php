@@ -14,7 +14,7 @@ class APIContext
     /**
      * @var string CLIENT_VERSION
      */
-    const CLIENT_VERSION = '2.0.2';
+    const CLIENT_VERSION = '2.0.3';
 
     /**
      * @var string REQUEST_OPTION_HTTP_ERRORS
@@ -283,15 +283,14 @@ class APIContext
 
     /**
      * @param string $merchantAccount
-     * @param string $paymentToken
      * @return array
      * @throws GuzzleException
      */
-    public function getDirectPaymentForm(string $merchantAccount, string $paymentToken)
+    public function getDirectPaymentForm(string $merchantAccount)
     {
         $response = $this->getAPIContext()->request(
             'GET',
-            'api/v3/provider/account/' . $merchantAccount . '/' . $paymentToken,
+            'api/v3/provider/account/' . $merchantAccount,
             [
                 self::REQUEST_OPTION_HTTP_ERRORS => false,
             ]
