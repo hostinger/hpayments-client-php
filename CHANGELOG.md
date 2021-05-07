@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.3] - 2021-05-07
+### Removed
+- An unused parameter from getDirectPaymentForm method
+
 ## [2.0.2] - 2021-04-07
 ### Added
 - Merchant accounts API V2 call
