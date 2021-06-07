@@ -1,6 +1,6 @@
 <?php
 
-namespace HPayments\Tests;
+namespace Hpayments\Tests;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
