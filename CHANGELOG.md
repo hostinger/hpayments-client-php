@@ -1,7 +1,7 @@
 # Changelog
 
 ## [1.2.4] - 2021-06-07
-### Removed
+### Added
 - Add submitApplepayValidationRequest method
 
 ## [1.2.3] - 2021-05-07
