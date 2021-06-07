@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.2.4] - 2021-06-07
+### Added
+- Add submitApplepayValidationRequest method
+
 ## [1.2.3] - 2021-05-07
 ### Removed
 - An unused parameter from getDirectPaymentForm method

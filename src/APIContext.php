@@ -14,7 +14,7 @@ class APIContext
     /**
      * @var string CLIENT_VERSION
      */
-    const CLIENT_VERSION = '1.2.3';
+    const CLIENT_VERSION = '1.2.4';
 
     /**
      * @var string REQUEST_OPTION_HTTP_ERRORS
@@ -390,6 +390,30 @@ class APIContext
                     [
                         'message' => $message,
                         'code'    => $code
+                    ]
+                )
+            ]
+        );
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param $userPaymentGatewayId
+     * @param $validationUrl
+     * @return array
+     * @throws GuzzleException
+     */
+    public function submitApplepayValidationRequest($userPaymentGatewayId, $validationUrl)
+    {
+        $response = $this->getAPIContext()->request(
+            'POST',
+            'api/v3/direct-payment/' . $userPaymentGatewayId . '/validateApplePay',
+            [
+                self::REQUEST_OPTION_HTTP_ERRORS => false,
+                self::REQUEST_OPTION_BODY        => json_encode(
+                    [
+                        'validation_url' => $validationUrl,
                     ]
                 )
             ]
