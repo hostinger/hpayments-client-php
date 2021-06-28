@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.5] - 2021-06-28
+### Added
+- Add getRenderInfo method
+
 ## [2.0.4] - 2021-06-07
 ### Added
 - Add submitApplepayValidationRequest method
