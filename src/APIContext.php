@@ -14,7 +14,7 @@ class APIContext
     /**
      * @var string CLIENT_VERSION
      */
-    const CLIENT_VERSION = '1.2.4';
+    const CLIENT_VERSION = '1.2.5';
 
     /**
      * @var string REQUEST_OPTION_HTTP_ERRORS
@@ -418,6 +418,24 @@ class APIContext
                 )
             ]
         );
+
+        return $this->parseResponse($response);
+    }
+
+    /**
+     * @param int $userPaymentGatewayId
+     * @param string $token
+     * @param string|null $paymentMethod
+     * @return array
+     * @throws GuzzleException
+     */
+    public function getRenderInfo($userPaymentGatewayId, $token, $paymentMethod = null)
+    {
+        $paymentMethodQuery = $paymentMethod ? '?pm=' . $paymentMethod : '';
+        $response = $this->getAPIContext()->request('GET', '/api/v3/render-info/' . $userPaymentGatewayId
+            . '/' . $token . $paymentMethodQuery, [
+            self::REQUEST_OPTION_HTTP_ERRORS => false
+        ]);
 
         return $this->parseResponse($response);
     }
