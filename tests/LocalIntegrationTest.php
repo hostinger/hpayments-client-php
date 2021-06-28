@@ -39,7 +39,7 @@ class LocalIntegrationTest extends TestCase
     {
         parent::setUp();
 
-        $this->client = new APIContext('be75Nj5Xll6i0deks8h3', 'http://localhost');
+        $this->client = new APIContext('be75Nj5Xll6i0deks8h3', 'http://hpayments.hostinger.local');
     }
 
     /**
